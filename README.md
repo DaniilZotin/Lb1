@@ -31,7 +31,12 @@ for i in name:
         continue
     print (i)
 ```
-
+7) А ще забувся про SSH ключ 
+Ну у мене і так все автоматично підключено завдяки Visual Studio 
+в будь який момент роблю commit,push,pull хочу клонувати новий репозиторій тоже без паролю 
+просто потрібно підключитись до свого GitHub і все
+![image](https://user-images.githubusercontent.com/85665335/122068129-cc6bc680-cdfc-11eb-8618-4e7e05516d23.png)
+## Кароче Visual Studio рулить)
 
 
 
