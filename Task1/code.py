@@ -58,8 +58,8 @@ print ('Масив без максимального числа',mas)
 # Цикл піднесення до степеню по індексу (не спрацює якщо не перетворити str в int)
 mas2 = []
 for i in range(len(mas)):
-        temp = mas[i] ** i
-        mas2.insert(i, temp)
+        step = mas[i] ** i
+        mas2.insert(i, step)
 print("Масив чисел піднесених до степеню по їх індексу:", mas2)
 print ('*****************')
 
