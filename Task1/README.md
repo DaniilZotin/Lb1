@@ -3,7 +3,7 @@
 ![image](https://user-images.githubusercontent.com/85665335/122608665-49a96c80-d085-11eb-9a3a-9a11b8c39828.png)
 2) створити папку task-0, та перемістити в неї всі файли першого завдання:
 ![image](https://user-images.githubusercontent.com/85665335/122609274-67c39c80-d086-11eb-884b-12825f96463c.png)
-------------------------------------------->![image](https://user-images.githubusercontent.com/85665335/122609319-78741280-d086-11eb-989f-14cb326bc96b.png)<-------------------------------------------
+------------------------------------------->![image](https://user-images.githubusercontent.com/85665335/122609319-78741280-d086-11eb-989f-14cb326bc96b.png)<---------------------------------------
 
 3)А ось код моєї програми для копіювання:
 ```Python
@@ -74,7 +74,7 @@ print ('*****************')
 ```
 4)Коміти та їх опис:
 ![image](https://user-images.githubusercontent.com/85665335/122612373-ae67c580-d08b-11eb-8c2e-60f1b5d681f6.png)
--------------------------------------->![image](https://user-images.githubusercontent.com/85665335/122612864-8a58b400-d08c-11eb-96f5-bf6c8c8cd5ff.png)<--------------------------------------
+-------------------------------------->![image](https://user-images.githubusercontent.com/85665335/122612864-8a58b400-d08c-11eb-96f5-bf6c8c8cd5ff.png)<-------------------------------------
 
 5) Відправляємо все що ви зробили на GitHub:
 
