@@ -1,7 +1,9 @@
 print ('*****************')
 s = list(input('Введіть свій рядок:'))
 mas = []
-for i in range(len(s)):
+# Фрагмент коду за який мені стидно але він работає і харашо в майбутньому зміню
+# Його задача видаляти цифри з рядка і додавати їх в масив
+for i in range(len(s)): 
     if '1' in s:
         s.remove('1')
         mas.append('1')
@@ -32,17 +34,27 @@ for i in range(len(s)):
     elif '0' in s:
         s.remove('0')
         mas.append('9')
+
+# Був масив із рядків тепер із чисел
 mas = [int(i) for i in mas]
 s = ''.join(s)
 print ('Масив тільки з числами',mas)
 print ('Рядок без чисел:',s)
+
+# Не бийте мене я це знайшов на stackoverflow і не докінця понімаю як воно працює АЛЕ ПРАЦЮЄ!)
 def cap_both(phrase):
     return ' '.join(map(lambda s: s[:-1]+s[-1].upper(), phrase.title().split()))
+
 print ('Кожне слово починається з великої і кінчається великою:',cap_both(s))
 maxnumber = max(mas)
+
+# Видаляємо максимальний елемент з масиву щоб він нам не заважав
 mas.remove(max(mas))
+
 print("Максимальне значення в масиві:", maxnumber)
 print ('Масив без максимального числа',mas)
+
+# Цикл піднесення до степеню по індексу (не спрацює якщо не перетворити str в int)
 mas2 = []
 for i in range(len(mas)):
         temp = mas[i] ** i
