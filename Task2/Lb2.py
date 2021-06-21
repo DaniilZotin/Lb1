@@ -26,6 +26,7 @@ def calculate():
      calc.delete(0,tk.END)
      calc.insert(0,eval(value))
 
+#Функція для кнопки з очисткою Entry
 def clear():
     calc.delete(0,tk.END)
     calc.insert(0,0)
@@ -39,7 +40,6 @@ def make_oper_button(oper):
     return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
                                             command=lambda : add_operation(oper))
                                         
-
 def make_equally_button(oper):
     return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
                                             command=calculate)
@@ -48,8 +48,14 @@ def make_delete_button(oper):
     return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
                                             command=clear)
 
-
-
+#Ввод з клавіатури приймає усі символи але відображає тільки числа 
+def press_key(event):
+    print(event.char)
+    if event.char.isdigit():
+        add_number(event.char)
+    elif event.char in '+-*/':
+        add_operation(event.char)
+    
 
 win = tk.Tk()
 w = 245
@@ -58,6 +64,8 @@ win.geometry(f"{w}x{h}-10+10")
 win['bg'] = '#00CCCC'
 win.title('Калькуляор')
 
+#Метод для вводу з клавіатури
+win.bind('<Key>', press_key)
 
 
 #Поле в яке вноситься вся інформація та критерій справа важливо 
