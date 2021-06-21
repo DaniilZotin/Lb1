@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import messagebox
+from tkinter.constants import INSERT
 
 #Додавання цифер в Entry, видаленння 0 і запис інших цифер
 def add_number(number):
@@ -19,12 +21,23 @@ def add_operation(oper):
     calc.delete(0,tk.END)
     calc.insert(0,value + oper)
     
+#Функція для підрахунку але якщо букви або інші символи повідомлення про помилку    
 def calculate():
      value = calc.get()
      if value[-1] in '+-*/':
          value = value+value[:-1]
      calc.delete(0,tk.END)
-     calc.insert(0,eval(value))
+     try:
+         calc.insert(0,eval(value))
+     except (NameError, SyntaxError):
+         messagebox.showinfo('Увага','Потрібно вводити тільки числа ! Ви ввели інші символи')
+         calc.insert(0,0)
+     except (ZeroDivisionError):
+         messagebox.showinfo('Увага','На нуль ділити не можна')
+         calc.insert(0,0)
+
+     
+
 
 #Функція для кнопки з очисткою Entry
 def clear():
@@ -32,7 +45,7 @@ def clear():
     calc.insert(0,0)
 
 
-#Функція для створення кнопки і ШРИФТ!!! це реальний шрифт який викоритовується для калькулятора Windows   
+#Функція для створення кнопки з числами і ШРИФТ!!! це реальний шрифт який викоритовується для калькулятора Windows   
 def make_number_button(number):
     return tk.Button(text=number,bd=5, font = ('Segoe UI',13),command=lambda : add_number(number))
 
@@ -55,8 +68,10 @@ def press_key(event):
         add_number(event.char)
     elif event.char in '+-*/':
         add_operation(event.char)
+    elif event.char == '\r':
+        calculate()
     
-
+#Налаштування головного вікна
 win = tk.Tk()
 w = 245
 h = 270
@@ -73,7 +88,7 @@ calc = tk.Entry(win, justify=tk.RIGHT, font = ('Segoe UI', 15),width=15)
 calc.insert(0,'0')
 calc.grid(row=0,column=0,columnspan=4, sticky='we')
 
-#Візуалка кнопок 
+#Візуалка кнопок плюс деякі характеристики
 make_number_button('1').grid(row=1,column=0,sticky='wens',padx=5,pady=5)
 make_number_button('2').grid(row=1,column=1,sticky='wens',padx=5,pady=5)
 make_number_button('3').grid(row=1,column=2,sticky='wens',padx=5,pady=5)
