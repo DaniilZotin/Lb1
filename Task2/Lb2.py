@@ -3,7 +3,7 @@ import tkinter as tk
 #Додавання цифер в Entry, видаленння 0 і запис інших цифер
 def add_number(number):
     value = calc.get() 
-    if value [0] == '0':
+    if value [0] == '0' and len(value) == 1:
         value = value [1:]
     calc.delete(0,tk.END)
     calc.insert(0,value + number)
@@ -13,9 +13,24 @@ def add_operation(oper):
     value = calc.get() 
     if value [-1] in '-+*/':
         value = value [:-1]
+    elif '+' in value or '-' in value or '*' in value or '/' in value:
+        calculate()
+        value = calc.get() 
     calc.delete(0,tk.END)
     calc.insert(0,value + oper)
     
+def calculate():
+     value = calc.get()
+     if value[-1] in '+-*/':
+         value = value+value[:-1]
+     calc.delete(0,tk.END)
+     calc.insert(0,eval(value))
+
+def clear():
+    calc.delete(0,tk.END)
+    calc.insert(0,0)
+
+
 #Функція для створення кнопки і ШРИФТ!!! це реальний шрифт який викоритовується для калькулятора Windows   
 def make_number_button(number):
     return tk.Button(text=number,bd=5, font = ('Segoe UI',13),command=lambda : add_number(number))
@@ -27,7 +42,11 @@ def make_oper_button(oper):
 
 def make_equally_button(oper):
     return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
-                                            command=lambda : add_number(oper))
+                                            command=calculate)
+
+def make_delete_button(oper):
+    return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
+                                            command=clear)
 
 
 
@@ -38,6 +57,8 @@ h = 270
 win.geometry(f"{w}x{h}-10+10")
 win['bg'] = '#00CCCC'
 win.title('Калькуляор')
+
+
 
 #Поле в яке вноситься вся інформація та критерій справа важливо 
 calc = tk.Entry(win, justify=tk.RIGHT, font = ('Segoe UI', 15),width=15)
@@ -56,11 +77,13 @@ make_number_button('8').grid(row=3,column=1,sticky='wens',padx=5,pady=5)
 make_number_button('9').grid(row=3,column=2,sticky='wens',padx=5,pady=5)
 make_number_button('0').grid(row=4,column=0,sticky='wens',padx=5,pady=5)
 
-make_oper_button('+').grid(row=1,column=3,sticky='wens',padx=5,pady=5)
+make_oper_button('+').grid(row=4,column=1,sticky='wens',padx=5,pady=5)
 make_oper_button('-').grid(row=2,column=3,sticky='wens',padx=5,pady=5)
 make_oper_button('*').grid(row=3,column=3,sticky='wens',padx=5,pady=5)
-make_oper_button('/').grid(row=4,column=3,sticky='wens',padx=5,pady=5)
-make_equally_button('=').grid(row=4,column=2,sticky='wens',padx=5,pady=5)
+make_oper_button('/').grid(row=4,column=2,sticky='wens',padx=5,pady=5)
+
+make_equally_button('=').grid(row=4,column=3,sticky='wens',padx=5,pady=5)
+make_delete_button('C').grid(row=1,column=3,sticky='wens',padx=5,pady=5)
 
 
 #Мінімальна ширина стовбця з кнопками (або з іншими елементами)
