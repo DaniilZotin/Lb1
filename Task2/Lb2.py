@@ -1,43 +1,80 @@
 import tkinter as tk
 
-#Функція додавання чисел на calс тобто маленький екранчик
+#Додавання цифер в Entry, видаленння 0 і запис інших цифер
 def add_number(number):
-    value = calc.get() + str(number)
-    calc.delete(0,tk.E)
-    calc.insert(0,value)
+    value = calc.get() 
+    if value [0] == '0':
+        value = value [1:]
+    calc.delete(0,tk.END)
+    calc.insert(0,value + number)
 
-# Загальні налаштування вікна 
+#Функція для зміни операції (тобто тепер не можна ввести декілька плюсів підряд) 
+def add_operation(oper):
+    value = calc.get() 
+    if value [-1] in '-+*/':
+        value = value [:-1]
+    calc.delete(0,tk.END)
+    calc.insert(0,value + oper)
+    
+#Функція для створення кнопки і ШРИФТ!!! це реальний шрифт який викоритовується для калькулятора Windows   
+def make_number_button(number):
+    return tk.Button(text=number,bd=5, font = ('Segoe UI',13),command=lambda : add_number(number))
+
+def make_oper_button(oper):
+    return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
+                                            command=lambda : add_operation(oper))
+                                        
+
+def make_equally_button(oper):
+    return tk.Button(text=oper,bd=5, font = ('Segoe UI',13), fg = 'red',
+                                            command=lambda : add_number(oper))
+
+
+
+
 win = tk.Tk()
-h = 240
-w = 260
-win.geometry(f"{h}x{w}-10+10")
+w = 245
+h = 270
+win.geometry(f"{w}x{h}-10+10")
 win['bg'] = '#00CCCC'
 win.title('Калькуляор')
 
+#Поле в яке вноситься вся інформація та критерій справа важливо 
 calc = tk.Entry(win, justify=tk.RIGHT, font = ('Segoe UI', 15),width=15)
-calc.grid(row=0,column=0,columnspan=3, sticky='we')
+calc.insert(0,'0')
+calc.grid(row=0,column=0,columnspan=4, sticky='we')
 
-#Створення кнопок і надання різних характеристик 
-tk.Button(text='1',bd=5, font = ('Segoe UI',13),command=lambda : add_number(1)).grid(row=1,column=0,sticky='wens',padx=5,pady=5)
-tk.Button(text='2',bd=5, font = ('Segoe UI',13),command=lambda : add_number(2)).grid(row=1,column=1,sticky='wens',padx=5,pady=5)
-tk.Button(text='3',bd=5, font = ('Segoe UI',13),command=lambda : add_number(3)).grid(row=1,column=2,sticky='wens',padx=5,pady=5)
-tk.Button(text='4',bd=5, font = ('Segoe UI',13),command=lambda : add_number(4)).grid(row=2,column=0,sticky='wens',padx=5,pady=5)
-tk.Button(text='5',bd=5, font = ('Segoe UI',13),command=lambda : add_number(5)).grid(row=2,column=1,sticky='wens',padx=5,pady=5)
-tk.Button(text='6',bd=5, font = ('Segoe UI',13),command=lambda : add_number(6)).grid(row=2,column=2,sticky='wens',padx=5,pady=5)
-tk.Button(text='7',bd=5, font = ('Segoe UI',13),command=lambda : add_number(7)).grid(row=3,column=0,sticky='wens',padx=5,pady=5)
-tk.Button(text='8',bd=5, font = ('Segoe UI',13),command=lambda : add_number(8)).grid(row=3,column=1,sticky='wens',padx=5,pady=5)
-tk.Button(text='9',bd=5, font = ('Segoe UI',13),command=lambda : add_number(9)).grid(row=3,column=2,sticky='wens',padx=5,pady=5)
-tk.Button(text='0',bd=5, font = ('Segoe UI',13),command=lambda : add_number(0)).grid(row=4,column=0,sticky='wens',padx=5,pady=5)
+#Візуалка кнопок 
+make_number_button('1').grid(row=1,column=0,sticky='wens',padx=5,pady=5)
+make_number_button('2').grid(row=1,column=1,sticky='wens',padx=5,pady=5)
+make_number_button('3').grid(row=1,column=2,sticky='wens',padx=5,pady=5)
+make_number_button('4').grid(row=2,column=0,sticky='wens',padx=5,pady=5)
+make_number_button('5').grid(row=2,column=1,sticky='wens',padx=5,pady=5)
+make_number_button('6').grid(row=2,column=2,sticky='wens',padx=5,pady=5)
+make_number_button('7').grid(row=3,column=0,sticky='wens',padx=5,pady=5)
+make_number_button('8').grid(row=3,column=1,sticky='wens',padx=5,pady=5)
+make_number_button('9').grid(row=3,column=2,sticky='wens',padx=5,pady=5)
+make_number_button('0').grid(row=4,column=0,sticky='wens',padx=5,pady=5)
 
-# Мінімальний розмір фіг зна чого до кінця не розібрався передивлюсь відео
+make_oper_button('+').grid(row=1,column=3,sticky='wens',padx=5,pady=5)
+make_oper_button('-').grid(row=2,column=3,sticky='wens',padx=5,pady=5)
+make_oper_button('*').grid(row=3,column=3,sticky='wens',padx=5,pady=5)
+make_oper_button('/').grid(row=4,column=3,sticky='wens',padx=5,pady=5)
+make_equally_button('=').grid(row=4,column=2,sticky='wens',padx=5,pady=5)
+
+
+#Мінімальна ширина стовбця з кнопками (або з іншими елементами)
 win.grid_columnconfigure(0,minsize = 60)
 win.grid_columnconfigure(1,minsize = 60)
 win.grid_columnconfigure(2,minsize = 60)
+win.grid_columnconfigure(3,minsize = 60)
 
-win.grid_rowconfigure(1,minsize = 60)
+#Мінімальна висота рядка з кнопками (або з іншими елементами)
+win.grid_rowconfigure(1,minsize = 20)
 win.grid_rowconfigure(2,minsize = 60)
 win.grid_rowconfigure(3,minsize = 60)
 win.grid_rowconfigure(4,minsize = 60)
 
 
 win.mainloop()
+
