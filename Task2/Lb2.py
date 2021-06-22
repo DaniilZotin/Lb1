@@ -1,6 +1,5 @@
 import tkinter as tk
 import math 
-import sys
 from tkinter import messagebox
 from tkinter.constants import INSERT
 
