@@ -112,6 +112,13 @@ def tan():
     calc.delete(0,tk.END)
     calc.insert(0,math.tan(math.radians(float(value))))
 
+def cos():
+    value = calc.get()
+    if value[-1] in '+-/*':
+        value = value[:-1]
+    calc.delete(0,tk.END)
+    calc.insert(0,math.cos(math.radians(float(value))))
+
 def binar():
     value = calc.get()
     if value[-1] in '+-/*':
@@ -160,6 +167,10 @@ def make_sin_button(oper):
 def make_tan_button(oper):
     return tk.Button(text=oper, bd=5,font = ('Segoe UI', 10), fg = 'red',
                                              command=tan)
+
+def make_cos_button(oper):
+    return tk.Button(text=oper, bd=5,font = ('Segoe UI', 10), fg = 'red',
+                                             command=cos)
 
 def make_binar_button(oper):
     return tk.Button(text=oper, bd=5,font = ('Segoe UI', 10), fg = 'red',
@@ -212,10 +223,11 @@ make_oper_button('*').grid(row=3,column=3,sticky='wens',padx=5,pady=5)
 make_oper_button('/').grid(row=4,column=2,sticky='wens',padx=5,pady=5)
 make_log_button('log').grid(row=5,column=0,sticky='wens',padx=5,pady=5)
 make_ctg_button('ctg').grid(row=5,column=1,sticky='wens',padx=5,pady=5)
-make_percent_button('%').grid(row=5,column=2, stick='we', padx=5, pady=5)
+make_percent_button('%').grid(row=6,column=4, stick='we', padx=5, pady=5)
 make_ln_button('ln').grid(row=5,column=3, stick='wens', padx=5, pady=5)
 make_sin_button('sin').grid(row=6,column=0,columnspan=2, stick='we', padx=5, pady=5)
 make_tan_button('tan').grid(row=6,column=2,columnspan=2, stick='we', padx=5, pady=5)
+make_cos_button('cos').grid(row=5,column=2, stick='we', padx=5, pady=5)
 
 make_binar_button('Bin').grid(row=1,column=4,rowspan=5, stick='wens', padx=5, pady=5)
 make_equally_button('=').grid(row=4,column=3,sticky='wens',padx=5,pady=5)
