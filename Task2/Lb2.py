@@ -47,6 +47,8 @@ def clear():
     calc.insert(0,0)
 
 def log():
+    if calc.get() == '0':
+        return
     value = calc.get()
     if value[-1] in '+-*/':
         value = value [:-1] 
@@ -54,6 +56,8 @@ def log():
     calc.insert(0,math.log10(float(value)))
 
 def ctg():
+    if calc.get() == '0':
+        return
     value = calc.get()
     if value[-1] in '+-*/':
         value = value [:-1] 
@@ -93,6 +97,8 @@ def percent():
 
 def ln():
     value = calc.get()
+    if calc.get() == '0':
+        return
     if value[-1] in '+-*/':
         value = value [:-1] 
     calc.delete(0,tk.END)
