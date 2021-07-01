@@ -2,17 +2,16 @@ import http.client
 import json
 from tkinter import *
 
+
 win = Tk()
 w = 1300
 h = 600
 win.geometry(f"{w}x{h}-10+10")
 win.title('Статистика корони')
+win.resizable(width=False, height=False)
 win['bg'] = '#E20D0D'
 
 
-#pole = Entry(win, width=15 , borderwidth=5)
-#pole.grid(row=1,column=2,columnspan=2)
-#pole.pack()
 
 
 
@@ -33,16 +32,22 @@ text.pack()
 
 
 
-
 def refresh():
-    conn = http.client.HTTPSConnection("vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com")
-    conn.request("GET", "/api/npm-covid-data/europe", headers=headers)
-    res = conn.getresponse()
-    data = res.read()
-    po = data.decode("utf-8")
-    json = json.loads(po)
+    global headers, conn, res, data, json
 
-    n = 1
+    conn = http.client.HTTPSConnection("vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com")
+
+    headers = {
+    'x-rapidapi-key': "a7e52c0917msh2b786bc8814a02dp1fe800jsn8714ff36dedd",
+    'x-rapidapi-host': "vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com"
+    }
+
+    conn.request("GET", "/api/npm-covid-data/", headers=headers)
+
+    res = conn.getresponse()
+    data = json.loads(res.read().decode('utf-8'))
+
+    n = 35
 
     for i in range (n):
         text.insert('1.0','\n')
@@ -59,12 +64,40 @@ def refresh():
         text.insert('1.0', list(json[i].items())[2])
         text.insert('1.0','\n')
         text.insert('1.0', '-' * 34)
-    
-
-refreshButton = Button(win, text="REFRESH",height = 1, width = -10, font=('Segoe UI', 10), command=refresh)
-refreshButton.place(relwidth=0.4, relx=0.674)
 
 
+refreshButton = Button(win, text="REFRESH",height = 1, width = -10, font=('Segoe UI', 10))
+refreshButton.place(relwidth=0.4, rely=0.02, relx=0.674)
+pole = Entry(win, width=15 , borderwidth=5)
+pole.place(relwidth=0.325, rely=0.02)
+
+
+n = 35
+
+def search():
+    for i in range(n):
+        search = pole.get()
+        search_2 = json[i].get('Country')
+        if search == search_2:
+                text.insert('1.0', '\n')
+                text.insert('1.0', '-' * 25)
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('TotalRecovered'))
+                text.insert('1.0', 'TotalRecovered ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('TotalDeaths'))
+                text.insert('1.0', 'TotalDeaths ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('TotalCases'))
+                text.insert('1.0', 'TotalCases ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('Country'))
+                text.insert('1.0', 'Country ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', 'FROM SEARCH')
+
+search_button = Button(win, text="search", command=search)
+search_button.place(relwidth=0.325, rely=0.08)
 
 
 
@@ -115,5 +148,4 @@ for i in range (n):
 
 text.configure(state="disabled")
 win.mainloop()
-
 
